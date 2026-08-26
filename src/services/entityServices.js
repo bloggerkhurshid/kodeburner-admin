@@ -9,11 +9,23 @@ export const userService = {
 export const noteService = {
   getAll: (params) => api.get('/notes', { params }),
   getById: (id) => api.get(`/notes/${id}`),
-  create: (formData) => api.post('/notes', formData, {
-    headers: { 'Content-Type': 'multipart/form-data' }
+  create: (formData, onProgress) => api.post('/notes', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+    onUploadProgress: (e) => {
+      if (onProgress && e.total) {
+        const percent = Math.round((e.loaded * 100) / e.total);
+        onProgress(percent);
+      }
+    }
   }),
-  update: (id, formData) => api.post(`/notes/${id}`, formData, {
-    headers: { 'Content-Type': 'multipart/form-data' }
+  update: (id, formData, onProgress) => api.post(`/notes/${id}`, formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+    onUploadProgress: (e) => {
+      if (onProgress && e.total) {
+        const percent = Math.round((e.loaded * 100) / e.total);
+        onProgress(percent);
+      }
+    }
   }),
   delete: (id) => api.delete(`/notes/${id}`),
 };
@@ -21,11 +33,23 @@ export const noteService = {
 export const bookService = {
   getAll: (params) => api.get('/books', { params }),
   getById: (id) => api.get(`/books/${id}`),
-  create: (formData) => api.post('/books', formData, {
-    headers: { 'Content-Type': 'multipart/form-data' }
+  create: (formData, onProgress) => api.post('/books', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+    onUploadProgress: (e) => {
+      if (onProgress && e.total) {
+        const percent = Math.round((e.loaded * 100) / e.total);
+        onProgress(percent);
+      }
+    }
   }),
-  update: (id, formData) => api.post(`/books/${id}`, formData, {
-    headers: { 'Content-Type': 'multipart/form-data' }
+  update: (id, formData, onProgress) => api.post(`/books/${id}`, formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+    onUploadProgress: (e) => {
+      if (onProgress && e.total) {
+        const percent = Math.round((e.loaded * 100) / e.total);
+        onProgress(percent);
+      }
+    }
   }),
   delete: (id) => api.delete(`/books/${id}`),
 };

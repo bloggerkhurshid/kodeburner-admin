@@ -20,6 +20,7 @@ export const Books = () => {
   const [pdfFile, setPdfFile] = useState(null);
   const [thumbFile, setThumbFile] = useState(null);
   const [submitting, setSubmitting] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
 
   const { toast } = useToast();
 
@@ -51,6 +52,7 @@ export const Books = () => {
     setSemesterId(semesters[0]?.id || '');
     setPdfFile(null);
     setThumbFile(null);
+    setUploadProgress(0);
     setModalOpen(true);
   };
 
@@ -60,6 +62,7 @@ export const Books = () => {
     setSemesterId(book.semester.id);
     setPdfFile(null);
     setThumbFile(null);
+    setUploadProgress(0);
     setModalOpen(true);
   };
 
@@ -77,9 +80,12 @@ export const Books = () => {
     if (thumbFile) formData.append('thumbnail', thumbFile);
 
     setSubmitting(true);
+    setUploadProgress(0);
     try {
       if (editingBook) {
-        const res = await bookService.update(editingBook.id, formData);
+        const res = await bookService.update(editingBook.id, formData, (percent) => {
+          setUploadProgress(percent);
+        });
         if (res.success) {
           toast.success('Book updated successfully.');
           setModalOpen(false);
@@ -91,7 +97,9 @@ export const Books = () => {
           setSubmitting(false);
           return;
         }
-        const res = await bookService.create(formData);
+        const res = await bookService.create(formData, (percent) => {
+          setUploadProgress(percent);
+        });
         if (res.success) {
           toast.success('Book uploaded successfully.');
           setModalOpen(false);
@@ -102,6 +110,7 @@ export const Books = () => {
       toast.error(err.message || 'Operation failed.');
     } finally {
       setSubmitting(false);
+      setUploadProgress(0);
     }
   };
 
@@ -316,20 +325,50 @@ export const Books = () => {
                 />
               </div>
 
+              {/* PDF Upload Progress Bar */}
+              {submitting && (
+                <div className="bg-slate-950/90 border border-orange-500/30 rounded-2xl p-4 space-y-2.5 shadow-lg">
+                  <div className="flex items-center justify-between text-xs font-semibold">
+                    <span className="text-slate-200 flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-orange-500 animate-ping"></span>
+                      {uploadProgress < 100 ? 'Uploading PDF Textbook...' : 'Processing on Server...'}
+                    </span>
+                    <span className="text-orange-400 font-mono font-bold text-sm">{uploadProgress}%</span>
+                  </div>
+                  <div className="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden p-0.5">
+                    <div
+                      className="h-full bg-gradient-to-r from-orange-600 via-orange-500 to-amber-400 rounded-full transition-all duration-300 ease-out shadow-lg shadow-orange-500/50"
+                      style={{ width: `${Math.max(uploadProgress, 5)}%` }}
+                    ></div>
+                  </div>
+                  <p className="text-[11px] text-slate-400">
+                    {uploadProgress < 100 ? 'Uploading textbook edition to cloud storage...' : 'Finalizing record & building download endpoints...'}
+                  </p>
+                </div>
+              )}
+
               <div className="flex justify-end gap-3 pt-4 border-t border-slate-800">
                 <button
                   type="button"
+                  disabled={submitting}
                   onClick={() => setModalOpen(false)}
-                  className="px-4 py-2 bg-slate-800 text-slate-300 rounded-xl font-medium text-sm hover:bg-slate-700 transition-colors"
+                  className="px-4 py-2 bg-slate-800 text-slate-300 rounded-xl font-medium text-sm hover:bg-slate-700 transition-colors disabled:opacity-50"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="px-5 py-2 bg-indigo-600 text-white rounded-xl font-semibold text-sm hover:bg-indigo-500 transition-colors disabled:opacity-50"
+                  className="px-5 py-2 bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-500 hover:to-orange-400 text-white rounded-xl font-semibold text-sm shadow-lg shadow-orange-500/25 transition-all disabled:opacity-50 flex items-center gap-2"
                 >
-                  {submitting ? 'Saving...' : 'Save Book'}
+                  {submitting ? (
+                    <>
+                      <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></span>
+                      <span>{uploadProgress > 0 ? `Uploading (${uploadProgress}%)` : 'Saving...'}</span>
+                    </>
+                  ) : (
+                    'Save Book'
+                  )}
                 </button>
               </div>
             </form>
