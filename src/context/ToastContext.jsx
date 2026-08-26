@@ -1,11 +1,9 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { WifiOff, AlertTriangle, RefreshCw, X } from 'lucide-react';
+import React, { createContext, useContext, useState } from 'react';
 
 const ToastContext = createContext();
 
 export const ToastProvider = ({ children }) => {
   const [toasts, setToasts] = useState([]);
-  const [networkError, setNetworkError] = useState(null);
 
   const addToast = (message, type = 'info') => {
     const id = Date.now();
@@ -19,40 +17,13 @@ export const ToastProvider = ({ children }) => {
     setToasts((prev) => prev.filter((t) => t.id !== id));
   };
 
-  const showNetworkError = (errorDetail) => {
-    setNetworkError(errorDetail || {
-      title: 'Network Issue',
-      message: 'Unable to connect to the server. Please check your internet connection and try again.'
-    });
-  };
-
-  const hideNetworkError = () => {
-    setNetworkError(null);
-  };
-
-  useEffect(() => {
-    const handleNetworkEvent = (e) => {
-      const detail = e.detail || {};
-      showNetworkError({
-        title: detail.title || 'Network Issue',
-        message: detail.message || 'Unable to connect to the server. Please check your internet connection and try again.'
-      });
-    };
-
-    window.addEventListener('app-network-error', handleNetworkEvent);
-    return () => window.removeEventListener('app-network-error', handleNetworkEvent);
-  }, []);
-
   return (
     <ToastContext.Provider value={{
       addToast,
-      showNetworkError,
-      hideNetworkError,
       toast: {
         success: (msg) => addToast(msg, 'success'),
         error: (msg) => addToast(msg, 'error'),
         info: (msg) => addToast(msg, 'info'),
-        network: (msg) => showNetworkError({ title: 'Network Issue', message: msg }),
       }
     }}>
       {children}
@@ -78,50 +49,6 @@ export const ToastProvider = ({ children }) => {
           </div>
         ))}
       </div>
-
-      {/* Dedicated Network Issue Modal Popup */}
-      {networkError && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fadeIn">
-          <div className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl relative text-center">
-            <button
-              onClick={hideNetworkError}
-              className="absolute top-4 right-4 p-2 rounded-xl text-slate-400 hover:text-slate-100 hover:bg-slate-800 transition-colors"
-            >
-              <X size={18} />
-            </button>
-
-            <div className="w-16 h-16 rounded-2xl bg-orange-500/10 border border-orange-500/20 text-orange-500 flex items-center justify-center mx-auto mb-4">
-              <WifiOff size={32} />
-            </div>
-
-            <h3 className="text-xl font-bold text-slate-100 mb-2">
-              {networkError.title || 'Network Issue'}
-            </h3>
-            <p className="text-sm text-slate-400 leading-relaxed mb-6">
-              {networkError.message || 'Unable to connect to the server. Please check your internet connection and try again.'}
-            </p>
-
-            <div className="flex gap-3">
-              <button
-                onClick={hideNetworkError}
-                className="flex-1 py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-sm transition-colors"
-              >
-                Dismiss
-              </button>
-              <button
-                onClick={() => {
-                  hideNetworkError();
-                  window.location.reload();
-                }}
-                className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-500 hover:to-orange-400 text-white font-semibold text-sm shadow-lg shadow-orange-500/25 flex items-center justify-center gap-2 transition-all"
-              >
-                <RefreshCw size={16} />
-                Try Again
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </ToastContext.Provider>
   );
 };
