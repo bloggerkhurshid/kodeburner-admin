@@ -303,26 +303,36 @@ export const Notes = () => {
 
               <div>
                 <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
-                  PDF File {!editingNote && <span className="text-rose-400">*</span>}
+                  PDF Document {!editingNote && <span className="text-orange-400">*</span>}
                 </label>
                 <input
                   type="file"
-                  accept="application/pdf"
-                  onChange={(e) => setPdfFile(e.target.files[0])}
-                  className="w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-indigo-600 file:text-white hover:file:bg-indigo-500 cursor-pointer"
+                  accept=".pdf,application/pdf"
+                  onChange={(e) => setPdfFile(e.target.files[0] || null)}
+                  className="w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-orange-600 file:text-white hover:file:bg-orange-500 cursor-pointer"
                 />
+                {pdfFile && (
+                  <p className="mt-1.5 text-xs text-orange-400 font-medium flex items-center gap-1">
+                    ✓ Selected: {pdfFile.name} ({(pdfFile.size / (1024 * 1024)).toFixed(2)} MB)
+                  </p>
+                )}
               </div>
 
               <div>
                 <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
-                  Thumbnail Image (Optional)
+                  Thumbnail Cover Image (Optional)
                 </label>
                 <input
                   type="file"
-                  accept="image/*"
-                  onChange={(e) => setThumbFile(e.target.files[0])}
+                  accept="image/jpeg,image/png,image/webp,image/jpg"
+                  onChange={(e) => setThumbFile(e.target.files[0] || null)}
                   className="w-full text-xs text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-slate-800 file:text-slate-200 hover:file:bg-slate-700 cursor-pointer"
                 />
+                {thumbFile && (
+                  <p className="mt-1.5 text-xs text-slate-300 font-medium flex items-center gap-1">
+                    ✓ Selected: {thumbFile.name} ({(thumbFile.size / (1024 * 1024)).toFixed(2)} MB)
+                  </p>
+                )}
               </div>
 
               {/* PDF Upload Progress Bar */}
