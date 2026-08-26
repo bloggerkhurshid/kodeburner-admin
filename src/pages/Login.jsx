@@ -42,11 +42,11 @@ export const Login = () => {
         <div className="absolute top-0 right-0 -mr-16 -mt-16 w-48 h-48 bg-rose-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
         <div className="text-center mb-8">
-          <div className="inline-flex w-12 h-12 rounded-2xl bg-rose-600 items-center justify-center font-black text-white text-xl shadow-lg shadow-rose-600/30 mb-3">
-            B
+          <div className="inline-flex w-12 h-12 rounded-2xl bg-gradient-to-tr from-orange-600 to-orange-500 items-center justify-center font-black text-white text-xl shadow-lg shadow-orange-500/25 mb-3">
+            K
           </div>
-          <h2 className="text-2xl font-bold text-slate-100">Admin Sign In</h2>
-          <p className="text-sm text-slate-400 mt-1">BCA Academic Resource Management</p>
+          <h2 className="text-2xl font-bold text-slate-100">Kodeburner Admin</h2>
+          <p className="text-sm text-slate-400 mt-1">Academic Resource Management System</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-5">

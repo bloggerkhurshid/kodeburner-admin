@@ -47,12 +47,12 @@ export const Sidebar = ({ isOpen, toggleSidebar }) => {
       >
         {/* Brand Header */}
         <div className="h-16 flex items-center px-6 border-b border-slate-800/80 gap-3">
-          <div className="w-9 h-9 rounded-xl bg-rose-600 flex items-center justify-center font-black text-white text-lg shadow-lg shadow-rose-600/30">
-            B
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-orange-600 to-orange-500 flex items-center justify-center font-black text-white text-lg shadow-lg shadow-orange-500/25">
+            K
           </div>
           <div>
-            <h1 className="font-bold text-slate-100 text-base leading-tight">BCA Resource</h1>
-            <p className="text-[10px] text-rose-400 font-semibold uppercase tracking-wider">Admin Dashboard</p>
+            <h1 className="font-bold text-slate-100 text-base leading-tight">Kodeburner</h1>
+            <p className="text-[10px] text-orange-400 font-semibold uppercase tracking-wider">Admin Console</p>
           </div>
         </div>
 
