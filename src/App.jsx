@@ -16,6 +16,7 @@ import { Semesters } from './pages/Semesters';
 import { UsersPage } from './pages/Users';
 import { Admins } from './pages/Admins';
 import { Profile } from './pages/Profile';
+import { AppLinks } from './pages/AppLinks';
 
 import { ProtectedRoute, RoleProtectedRoute } from './routes/Guards';
 
@@ -39,6 +40,7 @@ export default function App() {
                 <Route path="/books" element={<Books />} />
                 <Route path="/semesters" element={<Semesters />} />
                 <Route path="/users" element={<UsersPage />} />
+                <Route path="/app-links" element={<AppLinks />} />
                 <Route path="/profile" element={<Profile />} />
 
                 {/* Superadmin Only Routes */}

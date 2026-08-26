@@ -60,3 +60,16 @@ export const adminService = {
 export const dashboardService = {
   getStats: () => api.get('/dashboard'),
 };
+
+export const appLinkService = {
+  getAll: (params) => api.get('/app-links', { params }),
+  getAdminAll: (params) => api.get('/admin/app-links', { params }),
+  getById: (id) => api.get(`/admin/app-links/${id}`),
+  create: (formData) => api.post('/admin/app-links', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' }
+  }),
+  update: (id, formData) => api.post(`/admin/app-links/${id}`, formData, {
+    headers: { 'Content-Type': 'multipart/form-data' }
+  }),
+  delete: (id) => api.delete(`/admin/app-links/${id}`),
+};

@@ -9,7 +9,8 @@ import {
   Users,
   ShieldCheck,
   User,
-  LogOut
+  LogOut,
+  Link2
 } from 'lucide-react';
 
 export const Sidebar = ({ isOpen, toggleSidebar }) => {
@@ -22,6 +23,7 @@ export const Sidebar = ({ isOpen, toggleSidebar }) => {
     { name: 'Books', path: '/books', icon: BookOpen },
     { name: 'Semesters', path: '/semesters', icon: FolderTree },
     { name: 'Users', path: '/users', icon: Users },
+    { name: 'App Links', path: '/app-links', icon: Link2 },
   ];
 
   if (isSuperadmin) {
