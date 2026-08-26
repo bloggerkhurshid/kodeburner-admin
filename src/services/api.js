@@ -7,6 +7,7 @@ const api = axios.create({
   headers: {
     'Accept': 'application/json',
   },
+  timeout: 15000,
 });
 
 // Add token to request headers
@@ -21,7 +22,7 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Response interceptor for auth errors
+// Response interceptor for auth and network errors
 api.interceptors.response.use(
   (response) => response.data,
   (error) => {
@@ -31,6 +32,16 @@ api.interceptors.response.use(
       localStorage.removeItem('user');
       if (window.location.pathname !== '/login') {
         window.location.href = '/login';
+      }
+    } else if (!error.response || error.code === 'ERR_NETWORK' || error.code === 'ECONNABORTED' || (error.response && error.response.status >= 500)) {
+      // Trigger global Network Issue popup
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('app-network-error', {
+          detail: {
+            title: 'Network Issue',
+            message: 'Unable to communicate with the server. Please check your internet connection and try again.'
+          }
+        }));
       }
     }
     return Promise.reject(error.response?.data || { message: 'Network or server error' });
