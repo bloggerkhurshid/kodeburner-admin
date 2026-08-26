@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { noteService, semesterService } from '../services/entityServices';
+import { getAssetUrl } from '../services/api';
 import { useToast } from '../context/ToastContext';
 import { Pagination } from '../components/Pagination';
 import { FileText, Plus, Search, Trash2, Edit, Download, X } from 'lucide-react';
@@ -192,7 +193,7 @@ export const Notes = () => {
                     <td className="p-4">
                       {note.thumbnail ? (
                         <img
-                          src={`https://api.kodeburner.com${note.thumbnail}`}
+                          src={getAssetUrl(note.thumbnail)}
                           alt={note.name}
                           className="w-12 h-12 rounded-lg object-cover border border-slate-800"
                         />
@@ -204,14 +205,14 @@ export const Notes = () => {
                     </td>
                     <td className="p-4 font-semibold text-slate-100">{note.name}</td>
                     <td className="p-4">
-                      <span className="px-2.5 py-1 bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 rounded-md text-xs font-medium">
+                      <span className="px-2.5 py-1 bg-orange-500/10 text-orange-400 border border-orange-500/20 rounded-md text-xs font-medium">
                         {note.semester.name}
                       </span>
                     </td>
                     <td className="p-4">
                       <div className="flex items-center gap-2">
                         <img
-                          src={note.uploaded_by.photo ? `https://api.kodeburner.com${note.uploaded_by.photo}` : 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100'}
+                          src={note.uploaded_by.photo ? getAssetUrl(note.uploaded_by.photo) : 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100'}
                           alt={note.uploaded_by.name}
                           className="w-7 h-7 rounded-full object-cover"
                         />
@@ -224,10 +225,10 @@ export const Notes = () => {
                     <td className="p-4 text-right">
                       <div className="flex items-center justify-end gap-2">
                         <a
-                          href={`https://api.kodeburner.com${note.pdf}`}
+                          href={getAssetUrl(note.pdf)}
                           target="_blank"
                           rel="noreferrer"
-                          className="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-indigo-400 transition-colors"
+                          className="p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-orange-400 transition-colors"
                           title="View PDF"
                         >
                           <Download size={16} />

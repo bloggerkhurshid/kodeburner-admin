@@ -1,13 +1,21 @@
 import axios from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://api.kodeburner.com';
+export const API_BASE_URL = (import.meta.env.VITE_API_URL || 'https://api.kodeburner.com').replace(/\/+$/, '');
+
+export const getAssetUrl = (path) => {
+  if (!path) return '';
+  if (path.startsWith('http://') || path.startsWith('https://') || path.startsWith('data:')) {
+    return path;
+  }
+  return `${API_BASE_URL}${path.startsWith('/') ? '' : '/'}${path}`;
+};
 
 const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
     'Accept': 'application/json',
   },
-  timeout: 15000,
+  timeout: 20000,
 });
 
 // Add token to request headers

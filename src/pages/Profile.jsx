@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
+import { getAssetUrl } from '../services/api';
 import { authService } from '../services/authService';
 import { User, Lock, Upload, Save } from 'lucide-react';
 
@@ -77,9 +78,9 @@ export const Profile = () => {
           <form onSubmit={handleProfileSubmit} className="space-y-4">
             <div className="flex items-center gap-4 py-2">
               <img
-                src={user?.image ? `https://api.kodeburner.com${user.image}` : 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150'}
+                src={user?.image ? getAssetUrl(user.image) : 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150'}
                 alt={user?.name}
-                className="w-16 h-16 rounded-2xl object-cover border-2 border-indigo-500/40"
+                className="w-16 h-16 rounded-2xl object-cover border-2 border-orange-500/40"
               />
               <div className="flex-1">
                 <label className="block text-xs font-semibold text-slate-400 uppercase mb-1">

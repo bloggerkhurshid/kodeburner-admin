@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { userService } from '../services/entityServices';
+import { getAssetUrl } from '../services/api';
 import { useToast } from '../context/ToastContext';
 import { Pagination } from '../components/Pagination';
 import { Users, Search, Trash2, CheckCircle, XCircle } from 'lucide-react';
@@ -101,7 +102,7 @@ export const UsersPage = () => {
                     <td className="p-4">
                       <div className="flex items-center gap-3">
                         <img
-                          src={u.image ? `https://api.kodeburner.com${u.image}` : 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100'}
+                          src={u.image ? getAssetUrl(u.image) : 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100'}
                           alt={u.name}
                           className="w-9 h-9 rounded-full object-cover border border-slate-800"
                         />

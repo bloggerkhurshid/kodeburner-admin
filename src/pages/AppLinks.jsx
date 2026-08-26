@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { appLinkService } from '../services/entityServices';
+import { getAssetUrl } from '../services/api';
 import { useToast } from '../context/ToastContext';
 import { Pagination } from '../components/Pagination';
 import {
@@ -174,7 +175,7 @@ export const AppLinks = () => {
 
   const renderIconPreview = (iconStr, size = 18) => {
     if (iconStr && (iconStr.startsWith('http://') || iconStr.startsWith('https://') || iconStr.startsWith('/uploads/'))) {
-      const src = iconStr.startsWith('http') ? iconStr : `https://api.kodeburner.com${iconStr}`;
+      const src = getAssetUrl(iconStr);
       return <img src={src} alt="icon" className="w-5 h-5 rounded object-cover" />;
     }
     const preset = PRESET_ICONS.find(p => p.key === iconStr) || PRESET_ICONS[5];

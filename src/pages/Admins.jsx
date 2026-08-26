@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { adminService } from '../services/entityServices';
+import { getAssetUrl } from '../services/api';
 import { useToast } from '../context/ToastContext';
+import { useAuth } from '../context/AuthContext';
 import { Pagination } from '../components/Pagination';
 import { ShieldCheck, Plus, Search, Trash2, Mail, CheckCircle, Clock, Ban, X } from 'lucide-react';
 
@@ -169,7 +171,7 @@ export const Admins = () => {
                     <td className="p-4">
                       <div className="flex items-center gap-3">
                         <img
-                          src={adm.image ? `https://api.kodeburner.com${adm.image}` : 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100'}
+                          src={adm.image ? getAssetUrl(adm.image) : 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=100'}
                           alt={adm.name}
                           className="w-9 h-9 rounded-full object-cover border border-slate-800"
                         />

@@ -13,6 +13,8 @@ import {
   Link2
 } from 'lucide-react';
 
+import { getAssetUrl } from '../services/api';
+
 export const Sidebar = ({ isOpen, toggleSidebar }) => {
   const { user, logout } = useAuth();
   const isSuperadmin = user?.role === 'superadmin';
@@ -71,7 +73,7 @@ export const Sidebar = ({ isOpen, toggleSidebar }) => {
                 className={({ isActive }) =>
                   `flex items-center gap-3 px-3.5 py-2.5 rounded-xl font-medium text-sm transition-all duration-200 ${
                     isActive
-                      ? 'bg-rose-600 text-white shadow-lg shadow-rose-600/25'
+                      ? 'bg-orange-600 text-white shadow-lg shadow-orange-600/25'
                       : 'text-slate-400 hover:text-slate-100 hover:bg-slate-800/60'
                   }`
                 }
@@ -87,9 +89,9 @@ export const Sidebar = ({ isOpen, toggleSidebar }) => {
         <div className="p-4 border-t border-slate-800/80 bg-slate-950/40">
           <div className="flex items-center gap-3 mb-3">
             <img
-              src={user?.image ? `https://api.kodeburner.com${user.image}` : 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150'}
+              src={user?.image ? getAssetUrl(user.image) : 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150'}
               alt={user?.name}
-              className="w-9 h-9 rounded-full object-cover border-2 border-rose-500/40"
+              className="w-9 h-9 rounded-full object-cover border-2 border-orange-500/40"
             />
             <div className="flex-1 min-w-0">
               <p className="text-xs font-semibold text-slate-200 truncate">{user?.name}</p>

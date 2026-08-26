@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { semesterService } from '../services/entityServices';
+import { getAssetUrl } from '../services/api';
 import { useToast } from '../context/ToastContext';
 import { FolderTree, Plus, Trash2, Edit, X, FileText, BookOpen } from 'lucide-react';
 
@@ -120,7 +121,7 @@ export const Semesters = () => {
                   <div className="flex items-center gap-3">
                     {sem.thumbnail ? (
                       <img
-                        src={`https://api.kodeburner.com${sem.thumbnail}`}
+                        src={getAssetUrl(sem.thumbnail)}
                         alt={sem.name}
                         className="w-12 h-12 rounded-xl object-cover border border-slate-800"
                       />
