@@ -10,7 +10,8 @@ import {
   ShieldCheck,
   User,
   LogOut,
-  Link2
+  Link2,
+  Sliders
 } from 'lucide-react';
 
 import { getAssetUrl } from '../services/api';
@@ -26,6 +27,7 @@ export const Sidebar = ({ isOpen, toggleSidebar }) => {
     { name: 'Semesters', path: '/semesters', icon: FolderTree },
     { name: 'Users', path: '/users', icon: Users },
     { name: 'App Links', path: '/app-links', icon: Link2 },
+    { name: 'App Settings & Ads', path: '/settings', icon: Sliders },
   ];
 
   if (isSuperadmin) {

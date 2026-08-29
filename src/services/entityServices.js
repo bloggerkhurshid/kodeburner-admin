@@ -97,3 +97,10 @@ export const appLinkService = {
   }),
   delete: (id) => api.delete(`/admin/app-links/${id}`),
 };
+
+export const settingsService = {
+  getSettings: () => api.get('/admin/settings'),
+  updateSettings: (data) => api.post('/admin/settings', data),
+  sendNotification: (data) => api.post('/admin/send-notification', data),
+};
+
