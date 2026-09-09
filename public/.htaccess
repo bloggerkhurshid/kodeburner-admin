@@ -1,0 +1,50 @@
+# ======================================================================
+# LiteSpeed & Apache SPA (Single Page Application) Rewrite Rules
+# Fixes 404 Not Found errors on page refresh and direct route access
+# ======================================================================
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # 1. Pass HTTP Authorization header (vital for JWT/Bearer token authentication)
+  RewriteCond %{HTTP:Authorization} ^(.*)
+  RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
+
+  # 2. Do not rewrite if the requested resource physically exists as a file or folder
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # 3. Client-side routing fallback: rewrite all other requests to index.html
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+# ======================================================================
+# LiteSpeed / Apache 404 Fallback Safety Net
+# In case mod_rewrite is bypassed or restricted by server vhost config
+# ======================================================================
+ErrorDocument 404 /index.html
+
+# ======================================================================
+# Security & Cache-Control Headers for LiteSpeed Web Server
+# ======================================================================
+<IfModule mod_headers.c>
+  # Clickjacking and MIME sniffing protections
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set X-XSS-Protection "1; mode=block"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # Static assets (cache 1 year with immutable hash)
+  <FilesMatch "\.(css|js|svg|png|jpg|jpeg|gif|webp|woff|woff2|ttf|eot|ico)$">
+    Header set Cache-Control "max-age=31536000, public, immutable"
+  </FilesMatch>
+
+  # HTML files (never cache index.html to guarantee SPA updates take effect immediately)
+  <FilesMatch "^index\.html$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+  </FilesMatch>
+</IfModule>

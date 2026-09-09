@@ -11,6 +11,7 @@ export const noteService = {
   getById: (id) => api.get(`/notes/${id}`),
   create: (formData, onProgress) => api.post('/notes', formData, {
     headers: { 'Content-Type': 'multipart/form-data' },
+    timeout: 0,
     onUploadProgress: (e) => {
       if (onProgress && e.total) {
         const percent = Math.round((e.loaded * 100) / e.total);
@@ -20,6 +21,7 @@ export const noteService = {
   }),
   update: (id, formData, onProgress) => api.post(`/notes/${id}`, formData, {
     headers: { 'Content-Type': 'multipart/form-data' },
+    timeout: 0,
     onUploadProgress: (e) => {
       if (onProgress && e.total) {
         const percent = Math.round((e.loaded * 100) / e.total);
@@ -35,6 +37,7 @@ export const bookService = {
   getById: (id) => api.get(`/books/${id}`),
   create: (formData, onProgress) => api.post('/books', formData, {
     headers: { 'Content-Type': 'multipart/form-data' },
+    timeout: 0,
     onUploadProgress: (e) => {
       if (onProgress && e.total) {
         const percent = Math.round((e.loaded * 100) / e.total);
@@ -44,6 +47,7 @@ export const bookService = {
   }),
   update: (id, formData, onProgress) => api.post(`/books/${id}`, formData, {
     headers: { 'Content-Type': 'multipart/form-data' },
+    timeout: 0,
     onUploadProgress: (e) => {
       if (onProgress && e.total) {
         const percent = Math.round((e.loaded * 100) / e.total);
@@ -58,10 +62,12 @@ export const semesterService = {
   getAll: () => api.get('/semesters'),
   getById: (id) => api.get(`/semesters/${id}`),
   create: (formData) => api.post('/semesters', formData, {
-    headers: { 'Content-Type': 'multipart/form-data' }
+    headers: { 'Content-Type': 'multipart/form-data' },
+    timeout: 0,
   }),
   update: (id, formData) => api.post(`/semesters/${id}`, formData, {
-    headers: { 'Content-Type': 'multipart/form-data' }
+    headers: { 'Content-Type': 'multipart/form-data' },
+    timeout: 0,
   }),
   delete: (id) => api.delete(`/semesters/${id}`),
 };
@@ -70,10 +76,12 @@ export const adminService = {
   getAll: (params) => api.get('/admins', { params }),
   getById: (id) => api.get(`/admins/${id}`),
   create: (formData) => api.post('/admins', formData, {
-    headers: { 'Content-Type': 'multipart/form-data' }
+    headers: { 'Content-Type': 'multipart/form-data' },
+    timeout: 0,
   }),
   update: (id, formData) => api.post(`/admins/${id}`, formData, {
-    headers: { 'Content-Type': 'multipart/form-data' }
+    headers: { 'Content-Type': 'multipart/form-data' },
+    timeout: 0,
   }),
   resendInvitation: (id) => api.post(`/admins/${id}/resend-invitation`),
   activate: (id) => api.post(`/admins/${id}/activate`),
@@ -90,10 +98,12 @@ export const appLinkService = {
   getAdminAll: (params) => api.get('/admin/app-links', { params }),
   getById: (id) => api.get(`/admin/app-links/${id}`),
   create: (formData) => api.post('/admin/app-links', formData, {
-    headers: { 'Content-Type': 'multipart/form-data' }
+    headers: { 'Content-Type': 'multipart/form-data' },
+    timeout: 0,
   }),
   update: (id, formData) => api.post(`/admin/app-links/${id}`, formData, {
-    headers: { 'Content-Type': 'multipart/form-data' }
+    headers: { 'Content-Type': 'multipart/form-data' },
+    timeout: 0,
   }),
   delete: (id) => api.delete(`/admin/app-links/${id}`),
 };

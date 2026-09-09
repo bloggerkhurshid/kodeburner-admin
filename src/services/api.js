@@ -15,15 +15,22 @@ const api = axios.create({
   headers: {
     'Accept': 'application/json',
   },
-  timeout: 20000,
+  timeout: 60000,
 });
 
-// Add token to request headers
+// Add token to request headers and disable timeout for file uploads
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
+    }
+
+    // Disable client timeout for FormData (file uploads) so large PDFs don't abort
+    if (config.data instanceof FormData) {
+      if (!config.timeout || config.timeout === 60000 || config.timeout === 20000) {
+        config.timeout = 0;
+      }
     }
     return config;
   },
