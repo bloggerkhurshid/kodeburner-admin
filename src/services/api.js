@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const API_BASE_URL = (import.meta.env.VITE_API_URL || 'https://api.kodeburner.com').replace(/\/+$/, '');
+export const API_BASE_URL = (import.meta.env.VITE_API_URL || 'https://kode.projuktisoft.com').replace(/\/+$/, '');
 
 export const getAssetUrl = (path) => {
   if (!path) return '';
