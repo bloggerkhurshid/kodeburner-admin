@@ -24,7 +24,19 @@ import {
   BookOpen,
   Heart,
   HelpCircle,
-  Code
+  Code,
+  Users,
+  Camera,
+  MessageCircle,
+  Briefcase,
+  ShoppingCart,
+  MapPin,
+  Phone,
+  Calendar,
+  FileText,
+  Settings,
+  Headphones,
+  Bell
 } from 'lucide-react';
 
 const PRESET_ICONS = [
@@ -33,15 +45,28 @@ const PRESET_ICONS = [
   { key: 'shield', label: 'Shield / Privacy', icon: Shield, color: 'text-emerald-400 bg-emerald-500/10' },
   { key: 'telegram', label: 'Telegram', icon: Send, color: 'text-sky-400 bg-sky-500/10' },
   { key: 'youtube', label: 'YouTube / Video', icon: PlayCircle, color: 'text-rose-400 bg-rose-500/10' },
+  { key: 'facebook', label: 'Facebook', icon: Users, color: 'text-blue-500 bg-blue-500/10' },
+  { key: 'instagram', label: 'Instagram', icon: Camera, color: 'text-pink-500 bg-pink-500/10' },
+  { key: 'twitter', label: 'Twitter / X', icon: MessageCircle, color: 'text-sky-400 bg-sky-400/10' },
+  { key: 'linkedin', label: 'LinkedIn', icon: Briefcase, color: 'text-blue-600 bg-blue-600/10' },
+  { key: 'github', label: 'GitHub / Code', icon: Code, color: 'text-slate-300 bg-slate-500/10' },
   { key: 'globe', label: 'Website / Web', icon: Globe, color: 'text-blue-400 bg-blue-500/10' },
   { key: 'share', label: 'Share', icon: Share2, color: 'text-purple-400 bg-purple-500/10' },
   { key: 'mail', label: 'Email / Contact', icon: Mail, color: 'text-indigo-400 bg-indigo-500/10' },
-  { key: 'discord', label: 'Community', icon: MessageSquare, color: 'text-indigo-400 bg-indigo-500/10' },
+  { key: 'discord', label: 'Discord', icon: MessageSquare, color: 'text-indigo-400 bg-indigo-500/10' },
+  { key: 'chat', label: 'Chat / Support', icon: MessageSquare, color: 'text-sky-400 bg-sky-500/10' },
   { key: 'info', label: 'About / Info', icon: Info, color: 'text-cyan-400 bg-cyan-500/10' },
   { key: 'book', label: 'Academic', icon: BookOpen, color: 'text-amber-400 bg-amber-500/10' },
   { key: 'heart', label: 'Donate / Love', icon: Heart, color: 'text-pink-400 bg-pink-500/10' },
   { key: 'help', label: 'Help / Support', icon: HelpCircle, color: 'text-teal-400 bg-teal-500/10' },
-  { key: 'code', label: 'Developer', icon: Code, color: 'text-violet-400 bg-violet-500/10' },
+  { key: 'shopping', label: 'Store / Shop', icon: ShoppingCart, color: 'text-orange-500 bg-orange-500/10' },
+  { key: 'location', label: 'Location / Map', icon: MapPin, color: 'text-red-500 bg-red-500/10' },
+  { key: 'phone', label: 'Phone / Call', icon: Phone, color: 'text-emerald-500 bg-emerald-500/10' },
+  { key: 'calendar', label: 'Events / Date', icon: Calendar, color: 'text-violet-500 bg-violet-500/10' },
+  { key: 'file', label: 'Document / File', icon: FileText, color: 'text-slate-400 bg-slate-500/10' },
+  { key: 'settings', label: 'Settings', icon: Settings, color: 'text-slate-500 bg-slate-600/10' },
+  { key: 'headset', label: 'Live Support', icon: Headphones, color: 'text-cyan-500 bg-cyan-500/10' },
+  { key: 'bell', label: 'Notifications', icon: Bell, color: 'text-amber-500 bg-amber-500/10' },
 ];
 
 export const AppLinks = () => {

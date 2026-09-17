@@ -16,6 +16,24 @@ import {
   ExternalLink
 } from 'lucide-react';
 
+const NOTIFICATION_PRESETS = [
+  {
+    label: "New Notes",
+    title: "🚀 New Study Notes Uploaded!",
+    message: "Check out the latest notes added to your course. Open the app now to download!"
+  },
+  {
+    label: "App Update",
+    title: "⭐ App Update Available",
+    message: "A new version of Kodeburner is out! Update now for new features and bug fixes."
+  },
+  {
+    label: "Exam Alert",
+    title: "📝 Important Exam Alert!",
+    message: "Important notification regarding upcoming exams or syllabus changes."
+  }
+];
+
 export const Settings = () => {
   const { toast } = useToast();
   const [loading, setLoading] = useState(true);
@@ -347,6 +365,39 @@ export const Settings = () => {
             </div>
 
             <form onSubmit={handleSendBroadcast} className="space-y-4">
+              <div className="mb-2 space-y-2">
+                <label className="block text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                  Quick Presets
+                </label>
+                <div className="flex flex-wrap gap-2">
+                  {NOTIFICATION_PRESETS.map((preset, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => {
+                        setNotifTitle(preset.title);
+                        setNotifMessage(preset.message);
+                      }}
+                      className="px-3 py-1.5 bg-slate-800 hover:bg-emerald-600/20 text-slate-300 hover:text-emerald-400 hover:border-emerald-500/50 text-xs font-medium rounded-lg border border-slate-700 transition-all"
+                    >
+                      {preset.label}
+                    </button>
+                  ))}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setNotifTitle('');
+                      setNotifMessage('');
+                      setNotifUrl('');
+                      setNotifImage('');
+                    }}
+                    className="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-slate-400 text-xs font-medium rounded-lg border border-slate-800 transition-all"
+                  >
+                    Clear
+                  </button>
+                </div>
+              </div>
+
               <div>
                 <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1.5">
                   Notification Title *
